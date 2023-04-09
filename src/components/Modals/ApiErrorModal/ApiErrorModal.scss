@@ -1,0 +1,18 @@
+@import '../../../styles/variables';
+
+.api-error-modal {
+
+  .ant-modal-content {
+
+    .ant-modal-body {
+
+      .content {
+
+        .anticon {
+          font-size: 48px;
+          color: $error;
+        }
+      }
+    }
+  }
+}

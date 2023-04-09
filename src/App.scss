@@ -1,0 +1,25 @@
+@import 'styles/bootstrap-grid.min.css';
+@import 'styles/form';
+@import 'styles/modal';
+@import 'styles/table';
+
+body {
+  @extend .form;
+  @extend .modal;
+  @extend .table;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+
+  .app-loading {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+  }
+}

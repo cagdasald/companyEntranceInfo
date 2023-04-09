@@ -1,0 +1,55 @@
+@import "variables";
+
+.form {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 60px $white inset !important;
+    -webkit-text-fill-color: $black;
+  }
+
+  .ant-form {
+    $border-radius: 6px;
+    $height: 42px;
+
+    .ant-input {
+      height: $height;
+      border-radius: $border-radius;
+    }
+
+    .ant-input-password {
+      @extend .ant-input;
+
+      .ant-input {
+        height: auto !important;
+      }
+    }
+
+    .ant-input-number {
+      @extend .ant-input;
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      .ant-input-number-handler-wrap {
+        border-radius: 0 $border-radius $border-radius 0;
+      }
+    }
+
+    .ant-select {
+      display: flex;
+      align-items: center;
+
+      .ant-select-selector {
+        @extend .ant-input;
+
+        .ant-select-selection-placeholder,
+        .ant-select-selection-item {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

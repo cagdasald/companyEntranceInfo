@@ -1,0 +1,34 @@
+@import "variables";
+
+.modal {
+
+  .ant-modal {
+
+    .ant-modal-content {
+      border-radius: 8px;
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .icon {
+          margin-bottom: 16px;
+        }
+
+        .title {
+          font-weight: bold;
+          margin-bottom: 8px;
+        }
+
+        .text {
+        }
+
+        #app-button {
+          margin-top: 24px;
+        }
+      }
+    }
+  }
+}
