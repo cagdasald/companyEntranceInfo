@@ -1,19 +1,75 @@
-import React from 'react';
-import AppButton from '../../components/Buttons/AppButton/AppButton';
-import { setMe } from '../../core/services/app/setMe/setMe.slice';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../core/services/hooks';
-import './HomePage.scss';
+import { cardEntrance } from '../../core/services/cardEntrance/cardEntrance.slice';
+import Constants from '../../core/utilities/constants';
+import moment from 'moment';
+import { Col, Row, Statistic, Table } from 'antd';
 
 function HomePage() {
-  const me = useAppSelector((state) => state.app.setMe.me);
+  const [totalCardEntrance, setTotalCardEntrance] = useState<number>(0);
+  const [totalCardlessEntrance, setTotalCardlessEntrance] = useState<number>(0);
+  const getCardEntrance = useAppSelector(
+    (state) => state.cardEntrance.cardEntrance
+  );
+
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    dispatch(cardEntrance());
+  }, [dispatch]);
+
+  useEffect(() => {
+     setTotalCardEntrance(getCardEntrance.data ? getCardEntrance.data.filter(entry => entry.kart_tipi === "kartlı").length : 0)
+     setTotalCardlessEntrance(getCardEntrance.data ? getCardEntrance.data.filter(entry => entry.kart_tipi === "kartsiz").length : 0)
+
+  }, [getCardEntrance.data]);
+
+
+  const columns = [
+    {
+      title: 'Giriş Tarihi',
+      dataIndex: 'gecis_tarihi',
+      width: 140,
+      key: 'gecis_tarihi',
+      render: (gecis_tarihi: string) => {
+        moment.locale('tr');
+        return (
+          <span>{moment(gecis_tarihi).format(Constants.dateFormatUI)}</span>
+        );
+      },
+    },
+    {
+      title: 'Geçiş Saati',
+      dataIndex: 'gecis_saati',
+      width: 140,
+      key: 'gecis_saati',
+    },
+    {
+      title: 'Kart Tipi',
+      dataIndex: 'kart_tipi',
+      width: 140,
+      key: 'kart_tipi',
+    },
+  ];
+
   return (
-    <div id="home-page" className="page">
-      <div className="page-content">
-        <h1>Welcome {me?.email}</h1>
-        <AppButton onClick={() => dispatch(setMe())}>Logout</AppButton>
-      </div>
+    <div>
+      <Table
+        className="app-table"
+        rowKey="created"
+        columns={columns}
+        dataSource={getCardEntrance.data}
+        scroll={{ x: 1000 }}
+        bordered
+      />
+      <Row gutter={20}>
+        <Col span={12}>
+          <Statistic title="Kartlı Geçiş Total" value={totalCardEntrance} />
+        </Col>
+        <Col span={12}>
+          <Statistic title="Kartsız Geçiş Total" value={totalCardlessEntrance} />
+        </Col>
+      </Row>
     </div>
   );
 }
